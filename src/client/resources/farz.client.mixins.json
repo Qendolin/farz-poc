@@ -1,0 +1,19 @@
+{
+	"required": true,
+	"package": "com.qendolin.farz.mixin.client",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"CachedOrthoProjectionMatrixBufferMixin",
+		"CachedPerspectiveProjectionMatrixBufferMixin",
+		"FrustumMixin",
+		"GameRendererMixin",
+		"GlCommandEncoderMixin",
+		"GlConstMixin",
+		"GlDeviceMixin",
+		"GlStateManagerMixin"
+	],
+	"plugin": "com.qendolin.farz.MixinPlugin",
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

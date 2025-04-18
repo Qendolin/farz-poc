@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "farz",
+	"version": "${version}",
+	"name": "FarZ",
+	"description": "This is a PoC of implementing reverse-z in minecraft",
+	"authors": [
+		"Qendolin"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/Qendolin/farz-poc"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/farz/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+		],
+		"client": [
+			"com.qendolin.farz.FarZClient"
+		]
+	},
+	"mixins": [
+		"farz.mixins.json",
+		{
+			"config": "farz.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.13",
+		"minecraft": "~1.21.5",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
