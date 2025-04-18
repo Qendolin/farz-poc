@@ -20,7 +20,7 @@ public abstract class GameRendererMixin {
     @Shadow public abstract float getDepthFar();
 
     @ModifyReturnValue(method = "getProjectionMatrix", at = @At("RETURN"))
-    private Matrix4f getReverseZInfiniteProjectionMatrix(Matrix4f matrix, float fov) {
+    private Matrix4f getReverseZProjectionMatrix(Matrix4f matrix, float fov) {
         float aspect = (float) minecraft.getWindow().getWidth() / minecraft.getWindow().getHeight();
         return Util.createProjectionMatrix(fov, aspect, PROJECTION_Z_NEAR, getDepthFar());
     }

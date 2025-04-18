@@ -17,7 +17,7 @@ public class CachedPerspectiveProjectionMatrixBufferMixin {
     @Shadow @Final private float zFar;
 
     @ModifyReturnValue(method = "createProjectionMatrix", at = @At("RETURN"))
-    private Matrix4f getReverseZInfiniteProjectionMatrix(Matrix4f matrix, int w, int h, float fov) {
+    private Matrix4f getReverseZProjectionMatrix(Matrix4f matrix, int w, int h, float fov) {
         float aspect = (float) w / h;
         return Util.createProjectionMatrix(fov, aspect, zNear, zFar);
     }

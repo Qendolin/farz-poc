@@ -2,6 +2,7 @@ package com.qendolin.farz.mixin.client;
 
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.qendolin.farz.FarZClient;
 import com.qendolin.farz.Util;
 import net.minecraft.client.renderer.CachedOrthoProjectionMatrixBuffer;
 import net.minecraft.client.renderer.CachedPerspectiveProjectionMatrixBuffer;
@@ -21,6 +22,6 @@ public class CachedOrthoProjectionMatrixBufferMixin {
 
     @ModifyReturnValue(method = "createProjectionMatrix", at = @At("RETURN"))
     private Matrix4f getReverseZOrthogonalMatrix(Matrix4f original, float w, float h) {
-        return new Matrix4f().setOrtho(0.0F, w, this.invertY ? h : 0.0F, this.invertY ? 0.0F : h, this.zFar, this.zNear, true);
+        return new Matrix4f().setOrtho(0.0F, w, this.invertY ? h : 0.0F, this.invertY ? 0.0F : h, this.zFar, this.zNear, FarZClient.ZERO_TO_ONE);
     }
 }

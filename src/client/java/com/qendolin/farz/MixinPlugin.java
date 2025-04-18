@@ -20,8 +20,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        String mode = System.getProperty("farz.mode");
-        if(mode == null) return true;
+        String mode = FarZClient.MODE;
         return !mode.equalsIgnoreCase("vanilla");
     }
 
