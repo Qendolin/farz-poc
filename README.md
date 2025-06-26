@@ -60,6 +60,10 @@ https://tomhultonharrop.com/mathematics/graphics/2023/08/06/reverse-z.html
 
 https://www.terathon.com/gdc07_lengyel.pdf
 
+Sodium also thought about implementing reverse-z, but decided against it because of mod compatibility. This is part of the reason why it would be good to have in the base game.
+
+https://github.com/CaffeineMC/sodium/issues/2324
+
 ## Comparison
 
 Waterlogged leaves at a distance of 128 blocks
