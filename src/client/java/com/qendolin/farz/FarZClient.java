@@ -133,19 +133,19 @@ public class FarZClient implements ClientModInitializer {
     private static void printStatus(LocalPlayer player) {
         if(player == null) {
             LOGGER.info("Vanilla (Override): {}", vanilla);
-            LOGGER.info("Zero To One: {}", zeroToOne);
             LOGGER.info("Floating Point: {}", floatingPointDepth);
             LOGGER.info("Infinite: {}", infinite);
+            LOGGER.info("Zero To One: {}", zeroToOne);
             LOGGER.info("Reverse: {}", reverse);
             return;
         }
 
         player.displayClientMessage(Component.literal("--------------------"), false);
         player.displayClientMessage(Component.literal("Vanilla (Override): " + vanilla), false);
-        player.displayClientMessage(Component.literal("Infinite: " + infinite), false);
-        player.displayClientMessage(Component.literal("Reverse: " + reverse), false);
-        player.displayClientMessage(Component.literal("Zero To One: " + zeroToOne), false);
         player.displayClientMessage(Component.literal("Floating Point: " + floatingPointDepth), false);
+        player.displayClientMessage(Component.literal("Infinite: " + infinite), false);
+        player.displayClientMessage(Component.literal("Zero To One: " + zeroToOne), false);
+        player.displayClientMessage(Component.literal("Reverse: " + reverse), false);
     }
 
     public static boolean vanilla() {

@@ -32,28 +32,10 @@ loom {
 
 	runs {
 		client {
-			ideConfigGenerated = false
+			ideConfigGenerated = true
 		}
 		server {
 			ideConfigGenerated = false
-		}
-		reverse {
-			client()
-			configName "Minecraft Client (Reverse)"
-			ideConfigGenerated = true
-			vmArgs "-Dfarz.mode=reverse"
-		}
-		infinite {
-			client()
-			configName "Minecraft Client (Infinite)"
-			ideConfigGenerated = true
-			vmArgs "-Dfarz.mode=infinite"
-		}
-		vanilla {
-			client()
-			configName "Minecraft Client (Vanilla)"
-			ideConfigGenerated = true
-			vmArgs "-Dfarz.mode=vanilla"
 		}
 	}
 }
