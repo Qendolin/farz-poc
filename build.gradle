@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.10-SNAPSHOT'
 	id 'maven-publish'
+	id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
 version = project.mod_version
@@ -106,12 +107,24 @@ publishing {
 			from components.java
 		}
 	}
+}
 
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
+def secretsProperties = new Properties()
+def secretsFile = project.file('secrets.properties')
+
+if (secretsFile.exists()) {
+	secretsProperties.load(new FileInputStream(secretsFile))
+}
+
+publishMods {
+	file = remapJar.archiveFile
+	changelog = ""
+	type = STABLE
+	modLoaders.add("fabric")
+
+	github {
+		repository = "Qendolin/farz-poc"
+		accessToken = providers.provider { secretsProperties.getProperty("GITHUB_TOKEN") }
+		commitish = "main"
 	}
 }
