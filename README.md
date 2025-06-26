@@ -5,10 +5,14 @@ optionally with an infinite far plane. This also changes the depth buffer format
 
 The fabulous graphics mod has been modified to work with rev-z, as such it doesn't it's now broken in vanilla.
 
-To choose which mode is used supply the `farz.mode` JVM argument as:
-- `-Dfarz.mode=infinite` for reversed z with an infinite far z
-- `-Dfarz.mode=reverse` for reversed z
-- `-Dfarz.mode=vanilla` for vanilla
+In game you can toggle the following using key-binds:
+- `Y` - Vanilla Override (Disables all changes)
+- `U` - Floating Point Depth Buffer
+- `I` - Infinite Far Z
+- `O` - Zero to One Depth Range
+- `P` - Reverse Z
+
+To get the best results, you should enable all of them.
 
 Note: View Bobbing and Nausea won't work correctly because I'm lazy, see `FrustumMixin`
 

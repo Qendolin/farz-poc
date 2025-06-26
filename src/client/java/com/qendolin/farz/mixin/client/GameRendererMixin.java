@@ -1,6 +1,7 @@
 package com.qendolin.farz.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.qendolin.farz.FarZClient;
 import com.qendolin.farz.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -20,7 +21,10 @@ public abstract class GameRendererMixin {
     @Shadow public abstract float getDepthFar();
 
     @ModifyReturnValue(method = "getProjectionMatrix", at = @At("RETURN"))
-    private Matrix4f getReverseZProjectionMatrix(Matrix4f matrix, float fov) {
+    private Matrix4f getReverseZProjectionMatrix(Matrix4f original, float fov) {
+        if(FarZClient.vanilla()) {
+            return original;
+        }
         float aspect = (float) minecraft.getWindow().getWidth() / minecraft.getWindow().getHeight();
         return Util.createProjectionMatrix(fov, aspect, PROJECTION_Z_NEAR, getDepthFar());
     }

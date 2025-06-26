@@ -1,0 +1,8 @@
+{
+  "key.farz.vanilla": "Toggle Vanilla",
+  "key.farz.zeroToOne": "Toggle Zero To One",
+  "key.farz.floatingPoint": "Toggle Floating Point",
+  "key.farz.reverse": "Toggle Reverse Z",
+  "key.farz.infinite": "Toggle Infinite Z",
+  "category.farz.main": "FarZ"
+}

@@ -4,14 +4,74 @@ import org.joml.Matrix4f;
 
 public class Util {
 
-    private static final boolean USE_INFINITE_FAR = "infinite".equalsIgnoreCase(System.getProperty("farz.mode"));
-
     public static Matrix4f createProjectionMatrix(float fov, float aspect, float zNear, float zFar) {
-        if(USE_INFINITE_FAR) {
-            return createReverseZInfiniteProjectionMatrix(fov, aspect, zNear, FarZClient.ZERO_TO_ONE);
-        } else {
-            return createReverseZProjectionMatrix(fov, aspect, zNear, zFar, FarZClient.ZERO_TO_ONE);
+        if(FarZClient.normal()) {
+            if(FarZClient.infinite()) {
+                return createNormalInfiniteProjectionMatrix(fov, aspect, zNear, FarZClient.zeroToOne());
+            } else {
+                return createNormalProjectionMatrix(fov, aspect, zNear, zFar, FarZClient.zeroToOne());
+            }
         }
+        if(FarZClient.infinite()) {
+            return createReverseZInfiniteProjectionMatrix(fov, aspect, zNear, FarZClient.zeroToOne());
+        } else {
+            return createReverseZProjectionMatrix(fov, aspect, zNear, zFar, FarZClient.zeroToOne());
+        }
+    }
+
+    private static Matrix4f createNormalProjectionMatrix(float fov, float aspect, float zNear, float zFar, boolean zeroToOne) {
+        float tanHalfFovy = (float) Math.tan(fov * Math.PI / 180.0 * 0.5);
+        Matrix4f dest = new Matrix4f();
+
+        float C, D;
+
+        if (zeroToOne) {
+            // Normal Z, [0, 1] Range
+            C = zFar / (zNear - zFar);
+            D = (zFar * zNear) / (zNear - zFar);
+        } else {
+            // Normal Z, [-1, 1] Range
+            C = (zFar + zNear) / (zNear - zFar);
+            D = (2.0f * zFar * zNear) / (zNear - zFar);
+        }
+
+        dest.m00(1.0f / (tanHalfFovy * aspect));
+        dest.m11(1.0f / tanHalfFovy);
+        dest.m22(C);
+        dest.m23(-1.0f);
+        dest.m32(D);
+        dest.m33(0.0f);
+
+        return dest;
+    }
+
+    private static Matrix4f createNormalInfiniteProjectionMatrix(float fov, float aspect, float zNear, boolean zeroToOne) {
+        float tanHalfFovy = (float) Math.tan(Math.toRadians(fov * 0.5));
+        Matrix4f dest = new Matrix4f();
+
+        float A = 1.0f / (tanHalfFovy * aspect);
+        float B = 1.0f / tanHalfFovy;
+
+        dest.m00(A);
+        dest.m11(B);
+
+        // Same as normal
+        dest.m23(-1.0f);
+        dest.m33(0.0f);
+
+        if (zeroToOne) {
+            // Normal Z direction, clip range [0, 1], infinite far plane
+            dest.m22(-1.0f);
+            dest.m32(-zNear);
+        } else {
+            // Normal Z direction, clip range [-1, 1], infinite far plane
+            dest.m22(-1.0f);
+            dest.m32(-2.0f * zNear);
+        }
+
+        dest.m33(0.0f);
+
+        return dest;
     }
 
     public static Matrix4f createReverseZProjectionMatrix(float fov, float aspect, float zNear, float zFar, boolean zeroToOne) {
@@ -80,5 +140,13 @@ public class Util {
         dest.m33(0.0f);
 
         return dest;
+    }
+
+    public static boolean isReverseZProjection(Matrix4f proj) {
+        return proj.m32() > 0.0f;
+    }
+
+    public static boolean isInfiniteProjection(Matrix4f proj) {
+        return proj.m22() == 0.0f || proj.m22() == -1.0f;
     }
 }
